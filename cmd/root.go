@@ -13,8 +13,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-
 var rootCmd = &cobra.Command{
 	Use:   "flaky-cli",
 	Short: "This CLI allows to obtain information related to the flaky tests of an application",
