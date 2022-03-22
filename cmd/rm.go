@@ -14,6 +14,7 @@ var rmCmd = &cobra.Command{
 	Use:   "rm",
 	Short: "The cluster rm command allows you to delete a cluster from the list of those to which you have access",
 	Long:  `The cluster rm command allows you to delete a cluster from the list of those to which you have access`,
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Cluster Rm Called")
 	},
