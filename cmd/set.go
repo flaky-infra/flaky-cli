@@ -11,7 +11,7 @@ import (
 )
 
 var setCmd = &cobra.Command{
-	Use:   "set",
+	Use:   "set [name of the cluster]",
 	Short: "The cluster set command allows you to set a new default cluster",
 	Long:  `The cluster set command allows you to set a new default cluster from the list of those you have access to.`,
 	Args:  cobra.MinimumNArgs(1),

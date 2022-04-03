@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var lsCmd = &cobra.Command{
+var lsClusterCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "The cluster ls command allows you to view the list of your clusters",
 	Long:  `The cluster ls command allows you to view the list of clusters to which you have access.`,
@@ -20,5 +20,5 @@ var lsCmd = &cobra.Command{
 }
 
 func init() {
-	clusterCmd.AddCommand(lsCmd)
+	clusterCmd.AddCommand(lsClusterCmd)
 }
