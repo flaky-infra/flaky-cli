@@ -6,8 +6,10 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var (
@@ -21,7 +23,40 @@ var (
 		Short: "The cluster add command allows you to add a new cluster",
 		Long:  `The cluster add command allows you to authenticate to a new cluster and add it to the list of usable clusters.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Cluster Add Called")
+			var clusters []map[string]interface{}
+			getClusters(&clusters)
+
+			isFirstCluster := false
+
+			if clusters == nil {
+				clusters = make([]map[string]interface{}, 0)
+			}
+
+			if len(clusters) == 0 {
+				isFirstCluster = true
+			}
+
+			for _, cluster := range clusters {
+				if cluster["clusterName"] == clusterName {
+					fmt.Printf("Error: A cluster with the name %s has already been inserted.\n", clusterName)
+					os.Exit(0)
+				}
+			}
+
+			newCluster := make(map[string]interface{})
+			newCluster["clusterName"] = clusterName
+			newCluster["clusterUrl"] = clusterUrl
+			newCluster["userEmail"] = userEmail
+			newCluster["userPassword"] = userPassword
+
+			clusters = append(clusters, newCluster)
+
+			if isFirstCluster || defaultCluster {
+				viper.Set("defaultCluster", newCluster["clusterName"])
+			}
+
+			viper.Set("clusters", clusters)
+			viper.WriteConfig()
 		},
 	}
 )

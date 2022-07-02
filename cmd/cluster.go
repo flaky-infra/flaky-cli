@@ -5,8 +5,31 @@ Copyright © 2022 Salvatore Fasano fasanosalvatore@hotmail.it
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
+
+func getClusters(clusters *[]map[string]interface{}) *[]map[string]interface{} {
+	err := viper.UnmarshalKey("clusters", &clusters)
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	}
+
+	return clusters
+}
+
+func isClusterPresent(clusters *[]map[string]interface{}, clusterName string) int {
+	clusterIndex := -1
+	for i, cluster := range *clusters {
+		if cluster["clusterName"] == clusterName {
+			clusterIndex = i
+			break
+		}
+	}
+	return clusterIndex
+}
 
 var clusterCmd = &cobra.Command{
 	Use:   "cluster",
