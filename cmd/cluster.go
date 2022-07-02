@@ -20,6 +20,17 @@ func getClusters(clusters *[]map[string]interface{}) *[]map[string]interface{} {
 	return clusters
 }
 
+func isClusterPresent(clusters *[]map[string]interface{}, clusterName string) int {
+	clusterIndex := -1
+	for i, cluster := range *clusters {
+		if cluster["clusterName"] == clusterName {
+			clusterIndex = i
+			break
+		}
+	}
+	return clusterIndex
+}
+
 var clusterCmd = &cobra.Command{
 	Use:   "cluster",
 	Short: "The cluster command can be used for cluster management",

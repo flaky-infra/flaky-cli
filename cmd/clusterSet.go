@@ -24,15 +24,9 @@ var (
 			var clusters []map[string]interface{}
 			getClusters(&clusters)
 
-			isClusterPresent := false
-			for _, cluster := range clusters {
-				if cluster["clusterName"] == newDefaultClusterName {
-					isClusterPresent = true
-					break
-				}
-			}
+			clusterIndex := isClusterPresent(&clusters, newDefaultClusterName)
 
-			if !isClusterPresent {
+			if clusterIndex == -1 {
 				fmt.Printf("Error: Cluster %s not found.\n", newDefaultClusterName)
 				os.Exit(0)
 			}

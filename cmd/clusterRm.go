@@ -25,16 +25,11 @@ var rmCmd = &cobra.Command{
 
 		var newClusters []map[string]interface{}
 
-		isClusterPresent := false
-		for i, cluster := range clusters {
-			if cluster["clusterName"] == deleteClusterName {
-				isClusterPresent = true
-				newClusters = append(clusters[:i], clusters[i+1:]...)
-				break
-			}
-		}
+		clusterIndex := isClusterPresent(&clusters, deleteClusterName)
 
-		if !isClusterPresent {
+		if clusterIndex != -1 {
+			newClusters = append(clusters[:clusterIndex], clusters[clusterIndex+1:]...)
+		} else {
 			fmt.Printf("Error: Cluster %s not found.\n", deleteClusterName)
 			os.Exit(0)
 		}
