@@ -37,6 +37,9 @@ func initConfig() {
 	home, err := os.UserHomeDir()
 	cobra.CheckErr(err)
 	flakyPath := filepath.Join(home, ".flaky")
+	if _, err := os.Stat(filepath.Join(flakyPath, "tmp")); os.IsNotExist(err) {
+		os.Mkdir(filepath.Join(flakyPath, "tmp"), 0755)
+	}
 	viper.AddConfigPath(flakyPath)
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("config")
