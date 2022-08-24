@@ -22,9 +22,9 @@ var lsTestCmd = &cobra.Command{
 		util.GetSliceMapViper("testRuns", &testRuns)
 
 		w := tabwriter.NewWriter(os.Stdout, 1, 1, 1, ' ', 0)
-		fmt.Fprintln(w, "TEST RUN ID\tDATE\tCLUSTER\t")
+		fmt.Fprintln(w, "TEST RUN ID\tPROJECT ID\tDATE\tCLUSTER\t")
 		for _, testRun := range testRuns {
-			fmt.Fprintf(w, "%s\t%s\t%s\t\n", testRun["testRunId"], testRun["date"], testRun["cluster"])
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t\n", testRun["testRunId"], testRun["applicationId"], testRun["date"], testRun["cluster"])
 		}
 		w.Flush()
 	},
